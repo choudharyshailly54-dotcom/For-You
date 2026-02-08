@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Tanush Behera: My Whole Heart 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magenta: #d90429;
+            --hot-pink: #ff006e;
+            --deep-rose: #880d1e;
+            --gold: #d4af37;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #7209b7;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #ff006e 0%, #800020 100%);
+            font-family: 'Playfair Display', serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #sparkle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .portal-frame {
+            width: 90%;
+            max-width: 480px;
+            height: 85vh;
+            background: rgba(255, 255, 255, 0.95);
+            border: 12px solid;
+            border-image: url('https://img.freepik.com/free-vector/hand-drawn-rose-border_23-2148818557.jpg') 30 round;
+            border-radius: 25px;
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.6);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .page { display: none; width: 100%; height: 100%; animation: slideUp 0.8s ease; }
+        .active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Video/Slideshow Style */
+        .video-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 3px solid var(--magenta);
+            box-shadow: 0 0 15px var(--hot-pink);
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 3s ease-in-out;
+            transform: scale(1.1);
+        }
+
+        .slide-img.visible { opacity: 1; transform: scale(1); }
+
+        /* Other Styles */
+        .btn-magenta {
+            background: linear-gradient(45deg, var(--magenta), var(--hot-pink));
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        #scratch-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border: 4px solid var(--magenta);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        canvas { position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair; }
+        .scratch-bg { width: 100%; height: 100%; object-fit: cover; }
+
+        .vintage-paper {
+            background: #fff9f0;
+            padding: 20px;
+            border: 1px solid #e0c097;
+            font-family: 'Dancing Script', cursive;
+            font-size: 19px;
+            text-align: left;
+        }
+
+        .petal {
+            position: absolute;
+            background: #ff4d6d;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall 6s linear infinite;
+        }
+
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body onclick="spawnSparkle(event)">
+
+    <canvas id="sparkle-canvas"></canvas>
+
+    <div class="portal-frame">
+        
+        <div id="p1" class="page active">
+            <h1 style="font-family: 'Great Vibes', cursive; font-size: 40px; color: var(--magenta);">Login to my Heart</h1>
+            <input type="text" id="user" style="padding:10px; border-radius:20px; border:1px solid var(--magenta); width:80%;" placeholder="Username (tanush)"><br>
+            <input type="password" id="pass" style="padding:10px; border-radius:20px; border:1px solid var(--magenta); width:80%;" placeholder="Password (1412)"><br>
+            <button class="btn-magenta" onclick="verify()">Login ❤️</button>
+        </div>
+
+        <div id="p2" class="page">
+            <h2 style="color: var(--magenta);">The Journey to my Heart...</h2>
+            <div class="video-container">
+                <img src="IMG_20260208_010251_140.jpg" class="slide-img visible">
+                <img src="IMG_20260208_005510.jpg" class="slide-img">
+                <img src="IMG_20260208_010237_812.jpg" class="slide-img">
+                <img src="IMG_20260208_010259_625.jpg" class="slide-img">
+            </div>
+            <p style="font-style: italic;">Where every path leads to you.</p>
+            <button class="btn-magenta" onclick="showPage(3)">Continue 👉</button>
+        </div>
+
+        <div id="p3" class="page">
+            <h2 style="color: var(--magenta);">A Secret Memory 🌹</h2>
+            <div id="scratch-container">
+                <img src="03680aba4f151b9244e15603b464e7fa.jpg" class="scratch-bg">
+                <canvas id="scratchCanvas" width="280" height="280"></canvas>
+            </div>
+            <button class="btn-magenta" onclick="showPage(4)">Next ✨</button>
+        </div>
+
+        <div id="p4" class="page">
+            <h1 style="font-size: 60px;">🧿</h1>
+            <h2 style="color: #003087;">No Nazar Zone</h2>
+            <p>Protecting our "Fake-to-Real" bond from every evil eye.</p>
+            <button class="btn-magenta" onclick="showPage(5)">Read my Letter 📜</button>
+        </div>
+
+        <div id="p5" class="page">
+            <div class="vintage-paper">
+                Tanush, <br><br>
+                Our story started with a literal 'fake' script... <br>
+                I think we both know I break rules for you. December 14th gives me butterflies. Your 'yes' was the best plot twist ever. Today, I’m asking you to keep being my real everything.<br><br>
+                I love you, Tanush.💞🎀
+            </div>
+            <button class="btn-magenta" onclick="showPage(6)">Final Step 👉</button>
+        </div>
+
+        <div id="p6" class="page">
+            <h1 style="font-family: 'Great Vibes', cursive; color: var(--magenta);">Will you keep being my boyfriend?</h1>
+            <button class="btn-magenta" onclick="document.getElementById('cert').style.display='block';">Of course Yesss! 😍</button>
+            
+            <div id="cert" style="display:none; margin-top:15px; border:5px double var(--gold); padding:10px; background:white;">
+                <h3 style="color:var(--magenta);">Certificate of Love</h3>
+                <p><b>Tanush Behera</b><br>World's Best Boyfriend</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Slideshow Logic
+        let currentSlide = 0;
+        function startSlideshow() {
+            const slides = document.querySelectorAll('.slide-img');
+            setInterval(() => {
+                slides[currentSlide].classList.remove('visible');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('visible');
+            }, 3500);
+        }
+
+        // Floating Petals
+        setInterval(() => {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 6000);
+        }, 500);
+
+        function verify() {
+            const u = document.getElementById('user').value.toLowerCase();
+            const p = document.getElementById('pass').value;
+            if(u === "tanush" && p === "1412") {
+                showPage(2);
+                startSlideshow();
+            } else { alert("Incorrect!"); }
+        }
+
+        function showPage(n) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('p' + n).classList.add('active');
+            if(n===3) initScratch();
+        }
+
+        function initScratch() {
+            const canvas = document.getElementById('scratchCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffb3c1';
+            ctx.fillRect(0, 0, 280, 280);
+            ctx.font = "bold 18px serif";
+            ctx.fillStyle = "#d90429";
+            ctx.textAlign = "center";
+            ctx.fillText("ERASE TO REVEAL 🌹", 140, 150);
+
+            let drawing = false;
+            function scratch(e) {
+                if(!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI*2); ctx.fill();
+            }
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => drawing = false);
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('touchstart', (e) => { drawing = true; e.preventDefault(); });
+            canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); });
+        }
+
+        function spawnSparkle(e) {
+            for(let i=0; i<8; i++) {
+                const sp = document.createElement('div');
+                sp.style.position = 'fixed';
+                sp.style.left = e.clientX + 'px';
+                sp.style.top = e.clientY + 'px';
+                sp.style.width = '6px'; sp.style.height = '6px';
+                sp.style.backgroundColor = '#fff';
+                sp.style.borderRadius = '50%';
+                sp.style.pointerEvents = 'none';
+                document.body.appendChild(sp);
+                const anim = sp.animate([
+                    { transform: 'translate(0,0)', opacity: 1 },
+                    { transform: `translate(${(Math.random()-0.5)*100}px, ${(Math.random()-0.5)*100}px)`, opacity: 0 }
+                ], 800);
+                anim.onfinish = () => sp.remove();
+            }
+        }
+    </script>
+</body>
+</html>
